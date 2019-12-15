@@ -36,3 +36,23 @@
         - execute：处理一个tuple
         - cleanup：shutdown之前的资源清理操作
         
+5. 安装环境
+    - tar -zxvf jdk.tar.gz -C 安装目录
+    - 加环境变量在~/.bash_profile
+    - jps -m 路径
+    - jps -l 类名
+    
+6. Storm 架构
+    - 主从
+    - Nimbus：主， 集群的主节点，负责任务（task）的指派和分发，资源的分配
+    - Supervisor：从，可以启动多个worker，无状态，元数据存储在ZK中
+    - Worker：运行具体组件逻辑（Spout、Bolt）的进程
+    - Task：Worker中每一个Spout和Bolt的线程为一个Task
+    - Executor：Spout和Bolt可能会共享一个线程
+    - logviewer 日志查看服务，提供给UI使用
+    - UI UI界面
+    
+
+    
+    
+    
