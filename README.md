@@ -52,7 +52,9 @@
     - logviewer 日志查看服务，提供给UI使用
     - UI UI界面
     
-
+7. Storm 目录树
+    - ${storm.local.dir}/nimbus/inbox存放正在运行的topology jar
+    - ${storm.local.dir}/supervisor/stormdist 
     
     
     
