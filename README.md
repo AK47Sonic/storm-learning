@@ -56,5 +56,17 @@
     - ${storm.local.dir}/nimbus/inbox存放正在运行的topology jar
     - ${storm.local.dir}/supervisor/stormdist 
     
+8. 并行度
+    - 一个worker进程执行的是一个topology的子集
+    - 一个worker进程会启动1..n个executor线程来执行一个topology的component
+    - 一个运行的topology是由集群中多态物理机的多个worker进程组成
+    - executor是一个被worker进程启动的单独线程，每个executor会运行1个topology的一个component（可能多个）
+    - task是最终运行spout或bolt代码的最小执行单元
+    - 默认：
+        - 一个supervisor节点最多启动4个worker进程，storm.yaml配置多个
+        - 每个topology默认占用一个worker进程，可以配多个
+        - 每个worker进程会启动一个executor，可以配多个
+        - 每个executor启动一个task，executor数量<=task数量
+    
     
     
