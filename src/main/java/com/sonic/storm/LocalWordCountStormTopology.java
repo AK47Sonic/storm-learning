@@ -128,7 +128,10 @@ public class LocalWordCountStormTopology {
         topologyBuilder.setBolt("CountBolt", new CountBolt()).fieldsGrouping("SplitBolt", new Fields("word"));
 
         LocalCluster localCluster = new LocalCluster();
-        localCluster.submitTopology("LocalWordCountStormTopology", new Config(), topologyBuilder.createTopology());
+        Config config = new Config();
+        config.setNumWorkers(2);
+        config.setNumAckers(0);
+        localCluster.submitTopology("LocalWordCountStormTopology", config, topologyBuilder.createTopology());
 
         Thread.sleep(20000);
 
