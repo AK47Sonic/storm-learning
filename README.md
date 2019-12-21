@@ -76,7 +76,10 @@
     - Partial Key grouping 同样字段会发送到同一个bolt中，并且会对数据倾斜情况进行优化
     - All grouping 一份数据发送给所有的bolt
     
-
+10. Guaranteeing Message Processing
+    - 在Spout中调用collector.emit要增加msgId参数
+    - 当Bolt中调用collector.ack(tuple)或collector.fail(tuple)，则Spout中的ack或fail方法会被调用
+    - 在Spout的ack或fail方法中处理异常消息，比如扔回队列或者存储数据库
     
     
     

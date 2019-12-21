@@ -41,10 +41,21 @@ public class LocalSumStormTopology {
 
         @Override
         public void nextTuple() {
-            this.collector.emit(new Values(++number));
+            ++ number;
+            this.collector.emit(new Values(number), number); //发送要带msgId
             logger.info("Spout: {}", number);
 
             Utils.sleep(1000);
+        }
+
+        @Override
+        public void ack(Object msgId) {
+            logger.info("ack msgId", msgId);
+        }
+
+        @Override
+        public void fail(Object msgId) {
+            logger.info("fail msgId", msgId);
         }
 
         @Override
@@ -54,6 +65,8 @@ public class LocalSumStormTopology {
     }
 
     public static class SumBolt extends BaseRichBolt {
+
+        private OutputCollector collector;
 
         @Override
         public void prepare(Map stormConf, TopologyContext context, OutputCollector collector) {
@@ -68,6 +81,8 @@ public class LocalSumStormTopology {
             Integer value = input.getIntegerByField("num");
             sum += value;
             logger.info("sum = [{}]", sum);
+            collector.ack(input); // 会调用Spout的ack
+//            collector.fail(input); // 会调用Spout的fail
         }
 
         @Override
