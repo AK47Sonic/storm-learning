@@ -68,6 +68,15 @@
         - 每个topology默认占用一个worker进程，可以配多个
         - 每个worker进程会启动一个executor，可以配多个
         - 每个executor启动一个task，executor数量<=task数量
+        - 每个worker启动一个acker
+        
+9. Stream Grouping
+    - Shuffle grouping 随机发送
+    - Fields grouping 同样字段会发送到同一个bolt中
+    - Partial Key grouping 同样字段会发送到同一个bolt中，并且会对数据倾斜情况进行优化
+    - All grouping 一份数据发送给所有的bolt
+    
+
     
     
     
